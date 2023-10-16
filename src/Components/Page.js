@@ -1,6 +1,5 @@
 import '../index.css';
-import SideBar from './SideBar';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function GamePanel() {
   const [hit, sethit] = useState(0);
@@ -10,20 +9,6 @@ function GamePanel() {
   const [gameOver, setgameOver] = useState(false);
   const [dep, setdep] = useState(0);
   const [tick, settick] = useState(false);
-  const [hs, setHs] = useState(0);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem('hs');
-    if (storedData) {
-      setHs(JSON.parse(storedData));
-    }
-  }, []);
-    
-  useEffect(() => {
-    localStorage.setItem('hs', JSON.stringify(hs));
-  }, [hs]);
-  
-  // console.log(arr);
 
   useEffect(() => {
     const createBubbles = () => {
@@ -61,8 +46,7 @@ function GamePanel() {
       if (time === 0) {
         setgameOver(true)
         clearInterval(interval)
-        if (score > hs) setHs(score)
-        console.log(score, hs);
+        
       }
     }, 1000);
 
@@ -84,11 +68,6 @@ function GamePanel() {
   }
 
   
-
-  useEffect(() => {
-    if (score > hs) setHs(score)
-    console.log(hs);
-  }, [])
 
 
   return (
@@ -123,7 +102,6 @@ function GamePanel() {
           </div>
         </div>
       </div>
-      <div className="Highest Score">Highest Score: {hs}</div>
     </>
   );
 }
